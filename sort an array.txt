@@ -1,0 +1,55 @@
+﻿class Solution {
+public:
+ void merge(vector<int> &input, int s, int e, int mid)
+    {
+        vector<int>temp(e-s+1);
+        int i=s, j=mid+1;
+        int k=0;
+        while(i<=mid && j<=e)
+        {
+             if(input[i]<=input[j]){
+            temp[k]=input[i];
+            k++, i++;
+        }
+        else{
+            temp[k]=input[j];
+            k++, j++;
+        }
+    }
+    
+        while(i<=mid){
+            temp[k]=input[i];
+            k++, i++;
+        }
+
+    
+        while(j<=e){
+            temp[k]=input[j];
+            k++, j++;
+        }
+    
+        
+        int l=0;
+        for(int b=s; b<=e; b++)
+        {
+            input[b]= temp[l];
+            l++;
+        }
+
+    }
+    void mergeSort(vector<int> &nums, int l, int r)
+    {
+        if(l>=r)
+        {
+            return;
+        }
+        int mid = (l+r)/2;
+        mergeSort(nums, l, mid);
+        mergeSort(nums, mid+1, r);
+        merge(nums, l, r, mid);
+    }
+    vector<int> sortArray(vector<int>& nums) {
+        mergeSort(nums, 0, nums.size()-1);
+        return nums;
+    }
+};
